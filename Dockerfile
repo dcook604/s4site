@@ -1,20 +1,20 @@
-FROM node:16-alpine AS deps
+FROM node:18-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
+# Copy Prisma schema before running npm ci to ensure prisma generate works
+COPY prisma ./prisma/
 RUN npm ci
 
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Generate Prisma client
-RUN npx prisma generate
-
-# Build the Next.js application
+# Prisma client is already generated in the deps stage
+# Just build the Next.js application
 RUN npm run build
 
-FROM node:16-alpine AS runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
