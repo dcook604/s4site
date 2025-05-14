@@ -262,3 +262,14 @@ The application includes several performance optimizations:
 When using Prisma's `select` option in queries (e.g., `findMany({ select: ... })`), the returned array elements are typed according to the selected fields. To avoid TypeScript errors, always provide explicit types for parameters in mapping functions (e.g., `.map((item: { id: string; ... }) => ...)`).
 
 See: [Prisma Type Safety: select](https://www.prisma.io/docs/orm/prisma-client/type-safety/select) 
+
+### SQLite Permissions in Docker/CapRover
+
+When deploying with SQLite in Docker (e.g., CapRover), ensure the application user (e.g., `nextjs`) has write permissions to the database and migrations directory (`/app/prisma`).
+
+- In the Dockerfile, add:
+  ```dockerfile
+  RUN chown -R 1001:1001 /app/prisma
+  ```
+  before switching to the non-root user.
+- This prevents "readonly database" errors when writing to SQLite. 
