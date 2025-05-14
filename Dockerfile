@@ -1,13 +1,11 @@
-FROM node:18-alpine AS deps
-RUN apk add --no-cache openssl1.1-compat
+FROM node:18-slim AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
 # Copy Prisma schema before running npm ci to ensure prisma generate works
 COPY prisma ./prisma/
 RUN npm ci
 
-FROM node:18-alpine AS builder
-RUN apk add --no-cache openssl1.1-compat
+FROM node:18-slim AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -16,8 +14,7 @@ COPY . .
 # Just build the Next.js application
 RUN npm run build
 
-FROM node:18-alpine AS runner
-RUN apk add --no-cache openssl1.1-compat
+FROM node:18-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
