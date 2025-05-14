@@ -21,7 +21,7 @@ RUN npm run build
 FROM node:18-slim AS runner
 RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
-ENV HOME=/app
+ENV HOME=/tmp
 
 ENV NODE_ENV production
 
@@ -40,9 +40,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # Create uploads directory
 RUN mkdir -p ./public/uploads/pdfs && \
     chown -R nextjs:nodejs ./public/uploads
-
-# Clean up .npm cache to avoid root-owned files
-RUN rm -rf /app/.npm
 
 # Set npm cache to a writable directory
 ENV npm_config_cache=/tmp/.npm
