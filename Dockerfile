@@ -41,8 +41,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 RUN mkdir -p ./public/uploads/pdfs && \
     chown -R nextjs:nodejs ./public/uploads
 
-# Fix npm cache directory permissions
-RUN chown -R nextjs:nodejs /app/.npm || true
+# Clean up .npm cache to avoid root-owned files
+RUN rm -rf /app/.npm
+
+# Set npm cache to a writable directory
+ENV npm_config_cache=/tmp/.npm
 
 # Switch to the nextjs user
 USER nextjs
