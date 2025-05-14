@@ -6,6 +6,7 @@ COPY package.json package-lock.json* ./
 # Copy Prisma schema before running npm ci to ensure prisma generate works
 COPY prisma ./prisma/
 RUN npm ci
+RUN npm install -g npm@latest
 
 FROM node:18-slim AS builder
 RUN apt-get update -y && apt-get install -y openssl
@@ -16,6 +17,7 @@ COPY . .
 
 # Prisma client is already generated in the deps stage
 # Just build the Next.js application
+RUN npm install -g npm@latest
 RUN npm run build
 
 FROM node:18-slim AS runner
@@ -44,6 +46,7 @@ RUN rm -rf /app/.npm
 # Set npm cache to a writable directory (both lowercase and uppercase)
 ENV npm_config_cache=/tmp/.npm
 ENV NPM_CONFIG_CACHE=/tmp/.npm
+ENV NPM_CONFIG_UPDATE_NOTIFIER=false
 
 USER nextjs
 
