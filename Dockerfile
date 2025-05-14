@@ -22,8 +22,7 @@ FROM node:18-slim AS runner
 RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 ENV HOME=/tmp
-
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -32,8 +31,6 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/prisma ./prisma
-
-# Leverage the standalone output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
@@ -41,15 +38,16 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 RUN mkdir -p ./public/uploads/pdfs && \
     chown -R nextjs:nodejs ./public/uploads
 
-# Set npm cache to a writable directory
-ENV npm_config_cache=/tmp/.npm
+# Remove any root-owned .npm directory
+RUN rm -rf /app/.npm
 
-# Switch to the nextjs user
+# Set npm cache to a writable directory (both lowercase and uppercase)
+ENV npm_config_cache=/tmp/.npm
+ENV NPM_CONFIG_CACHE=/tmp/.npm
+
 USER nextjs
 
 EXPOSE 3000
-
 ENV PORT 3000
 
-# Create SQLite database on first run
 CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"] 
