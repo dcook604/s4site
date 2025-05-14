@@ -48,6 +48,9 @@ ENV npm_config_cache=/tmp/.npm
 ENV NPM_CONFIG_CACHE=/tmp/.npm
 ENV NPM_CONFIG_UPDATE_NOTIFIER=false
 
+# Fix permissions for the prisma directory and files
+RUN chown -R 1001:1001 /app/prisma
+
 USER nextjs
 
 EXPOSE 3000
