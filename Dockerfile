@@ -1,4 +1,5 @@
 FROM node:18-alpine AS deps
+RUN apk add --no-cache openssl1.1-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
 # Copy Prisma schema before running npm ci to ensure prisma generate works
@@ -6,6 +7,7 @@ COPY prisma ./prisma/
 RUN npm ci
 
 FROM node:18-alpine AS builder
+RUN apk add --no-cache openssl1.1-compat
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -15,6 +17,7 @@ COPY . .
 RUN npm run build
 
 FROM node:18-alpine AS runner
+RUN apk add --no-cache openssl1.1-compat
 WORKDIR /app
 
 ENV NODE_ENV production
