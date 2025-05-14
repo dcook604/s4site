@@ -1,4 +1,5 @@
 FROM node:18-slim AS deps
+RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 COPY package.json package-lock.json* ./
 # Copy Prisma schema before running npm ci to ensure prisma generate works
@@ -6,6 +7,7 @@ COPY prisma ./prisma/
 RUN npm ci
 
 FROM node:18-slim AS builder
+RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -15,6 +17,7 @@ COPY . .
 RUN npm run build
 
 FROM node:18-slim AS runner
+RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 
 ENV NODE_ENV production
