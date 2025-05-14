@@ -139,6 +139,23 @@ The authentication system uses NextAuth.js with a custom credential provider:
    - Session tokens rotated for security
    - CSRF protection enabled by default
 
+### Adding an Administrator User
+
+To add an administrator user, update the Prisma seed script (`prisma/seed.ts`). The current seed script creates an admin user with:
+- **Email:** dcook@spectrum4.ca
+- **Password:** admin123 (bcrypt-hashed)
+- **Role:** admin
+
+To change the admin credentials, edit `prisma/seed.ts` and re-run:
+```bash
+npx prisma db seed
+```
+
+You can verify the user with Prisma Studio:
+```bash
+npx prisma studio
+```
+
 ## File Storage Strategy
 
 Document files are stored using the following approach:

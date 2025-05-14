@@ -143,6 +143,17 @@ npm run deploy
 ./deployWithGit.sh
 ```
 
+## Seeding an Administrator User
+
+- The seed script (`prisma/seed.ts`) creates an admin user:
+  - **Email:** dcook@spectrum4.ca
+  - **Password:** admin123
+  - **Role:** admin
+- To change credentials, edit `prisma/seed.ts` and run:
+  ```bash
+  npx prisma db seed
+  ```
+
 ## Data Models
 
 ### User
