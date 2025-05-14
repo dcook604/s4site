@@ -257,4 +257,33 @@ export type Page = {
   updatedAt: string;
   authorId: string;
 };
+```
+
+## TypeScript Map Parameter Typing
+
+> **Tip:** When mapping over arrays of objects returned from Prisma queries, always provide an explicit type for the map parameter to avoid implicit 'any' errors in TypeScript.
+
+**Example:**
+```ts
+const ids = items.map((item: { id: string }) => item.id);
+```
+
+> **Tip:** Also type parameters in nested map/filter functions, such as when building trees or processing nested data.
+
+**Example:**
+```ts
+const tree = items.map((item: ItemType) => ({
+  ...item,
+  children: items.filter((child: ItemType) => child.parentId === item.id)
+}));
+```
+
+## Prisma Select Query Typing
+
+> **Tip:** When using Prisma's `select` option, the result type is inferred from the selected fields. Always type map/filter parameters explicitly to avoid implicit any errors.
+
+**Example:**
+```ts
+const pages = await prisma.page.findMany({ select: { id: true, title: true } });
+const ids = pages.map((page: { id: string; title: string }) => page.id);
 ``` 

@@ -378,7 +378,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     // Get the currently selected category IDs
     const selectedCategoryIds = document.categories.map(
-      (category) => category.categoryId
+      (category: { categoryId: string }) => category.categoryId
     );
 
     return {

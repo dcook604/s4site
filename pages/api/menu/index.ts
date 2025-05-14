@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 const buildMenuTree = (items: any[], parentId: string | null = null): any[] => {
   const filtered = items.filter(item => item.parentId === parentId);
   
-  return filtered.map(item => ({
+  return filtered.map((item: { id: string; label: string; link: string | null; pageId?: string | null; parentId?: string | null; order: number; page?: { slug?: string } | null; }) => ({
     ...item,
     children: buildMenuTree(items, item.id)
   })).sort((a, b) => a.order - b.order);
@@ -37,7 +37,7 @@ export default async function handler(
     });
     
     // Process the data to include correct links
-    const processedItems = menuItems.map(item => {
+    const processedItems = menuItems.map((item: { id: string; label: string; link: string | null; pageId?: string | null; parentId?: string | null; order: number; page?: { slug?: string } | null; }) => {
       let link = item.link;
       
       // If the item is linked to a page, use the page's slug

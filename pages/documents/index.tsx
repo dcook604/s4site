@@ -141,8 +141,8 @@ export default function DocumentsPage({ documents, categories }: DocumentsPagePr
 
   // Get category badge for a document
   const getCategoryBadges = (doc: DocumentWithCategories) => {
-    const docCategories = doc.categories.map(c => c.category);
-    return docCategories.slice(0, 2).map(category => (
+    const docCategories = doc.categories.map((c: { category: { id: string; name: string; color: string | null; } }) => c.category);
+    return docCategories.slice(0, 2).map((category: { id: string; name: string; color: string | null; }) => (
       <Badge 
         key={category.id} 
         mr={1} 
@@ -166,6 +166,10 @@ export default function DocumentsPage({ documents, categories }: DocumentsPagePr
       );
     }
     return null;
+  };
+
+  const getDocumentById = (id: string) => {
+    return documents.find((doc) => doc.id === id);
   };
 
   return (

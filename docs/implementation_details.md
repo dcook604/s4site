@@ -239,3 +239,9 @@ The application includes several performance optimizations:
 ### Prisma Model Types (v6+)
 
 > **Note:** As of Prisma v6+, model types (e.g., `Page`, `User`, `Document`) are no longer exported directly from `@prisma/client`. Instead, you should define local TypeScript types matching your schema, or infer types from query results. See [Prisma documentation](https://www.prisma.io/docs/orm/prisma-client/type-safety). 
+
+### Type Inference with Prisma Select Queries
+
+When using Prisma's `select` option in queries (e.g., `findMany({ select: ... })`), the returned array elements are typed according to the selected fields. To avoid TypeScript errors, always provide explicit types for parameters in mapping functions (e.g., `.map((item: { id: string; ... }) => ...)`).
+
+See: [Prisma Type Safety: select](https://www.prisma.io/docs/orm/prisma-client/type-safety/select) 

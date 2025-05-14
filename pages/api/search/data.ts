@@ -32,7 +32,7 @@ export default async function handler(
     // Get all published pages
     const pages = await prisma.page.findMany({
       where: {
-        isPublished: true, // Only return published pages for search
+        isPublished: true,
       },
       select: {
         id: true,
@@ -52,7 +52,7 @@ export default async function handler(
     });
 
     // Process page data to extract plain text content
-    const processedPages = pages.map((page: Page) => {
+    const processedPages = pages.map((page: { id: string; title: string; slug: string; content: string; }) => {
       // Parse the JSON content to extract text
       let contentText = '';
       try {
