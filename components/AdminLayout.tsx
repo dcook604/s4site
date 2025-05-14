@@ -4,12 +4,13 @@ import {
   Flex,
   Text,
   Icon,
-  useColorModeValue,
   Link,
   BoxProps,
   CloseButton,
   Drawer,
+  DrawerOverlay,
   DrawerContent,
+  DrawerCloseButton,
   useDisclosure,
   IconButton,
   HStack,
@@ -47,20 +48,12 @@ const LinkItems: Array<LinkItemProps> = [
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.50', 'gray.900')}>
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
-      />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full">
+    <Box minH="100vh" bg={{ base: 'gray.50', _dark: 'gray.900' }}>
+      <SidebarContent onClose={onClose} />
+      <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
+        <DrawerOverlay />
         <DrawerContent>
+          <DrawerCloseButton />
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
@@ -85,9 +78,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue('white', 'gray.900')}
+      bg={{ base: 'white', _dark: 'gray.900' }}
       borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      borderRightColor={{ base: 'gray.200', _dark: 'gray.700' }}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -113,8 +106,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <NavItem 
         icon={FiHome} 
         href="/"
-        mt={8}
-        color="gray.500"
       >
         View Site
       </NavItem>
@@ -152,11 +143,9 @@ interface NavItemProps extends BoxProps {
 }
 
 const NavItem = ({ icon, href, isActive, children, ...rest }: NavItemProps) => {
-  const activeNavBg = useColorModeValue('primary.50', 'primary.900');
-  const activeNavColor = useColorModeValue('primary.700', 'primary.200');
-  const navBg = isActive ? activeNavBg : 'transparent';
-  const navColor = isActive ? activeNavColor : undefined;
-  
+  const navBg = isActive ? 'primary.50' : 'transparent';
+  const navColor = isActive ? 'primary.700' : undefined;
+  const filteredRest = rest;
   return (
     <NextLink href={href} passHref>
       <Link style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
@@ -174,7 +163,7 @@ const NavItem = ({ icon, href, isActive, children, ...rest }: NavItemProps) => {
             bg: 'primary.50',
             color: 'primary.700',
           }}
-          {...rest}>
+          {...filteredRest}>
           {icon && (
             <Icon
               mr="4"
@@ -189,35 +178,32 @@ const NavItem = ({ icon, href, isActive, children, ...rest }: NavItemProps) => {
   );
 };
 
-interface MobileProps extends FlexProps {
+interface MobileProps extends BoxProps {
   onOpen: () => void;
-}
-
-interface FlexProps extends BoxProps {
-  // Additional props specific to Flex if needed
 }
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { data: session } = useSession();
-  
+  const filteredRest = rest;
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
+      bg={{ base: 'white', _dark: 'gray.900' }}
       borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      borderBottomColor={{ base: 'gray.200', _dark: 'gray.700' }}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
+      {...filteredRest}>
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
-        icon={<FiMenu />}
-      />
+      >
+        <FiMenu />
+      </IconButton>
 
       <Text
         display={{ base: 'flex', md: 'none' }}
@@ -227,13 +213,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         Admin
       </Text>
 
-      <HStack spacing={{ base: '0', md: '6' }}>
+      <HStack gap="6">
         <Flex alignItems={'center'}>
           <HStack>
             <VStack
               display={{ base: 'none', md: 'flex' }}
               alignItems="flex-start"
-              spacing="1px"
+              gap="1px"
               ml="2">
               <Text fontSize="sm">
                 {session?.user?.name || session?.user?.email || 'Admin User'}

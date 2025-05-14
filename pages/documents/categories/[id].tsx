@@ -20,17 +20,28 @@ import Layout from '@/components/Layout';
 import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
 import prisma from '@/lib/prisma';
 
+// Define local types for DocumentWithCategory and DocumentCategory
+
+type DocumentCategory = {
+  id: string;
+  name: string;
+  description: string | null;
+  color: string | null;
+};
+
 type DocumentWithCategory = {
   id: string;
   title: string;
   fileName: string;
   fileSize: number;
   fileType: string;
-  description: string | null;
+  description?: string;
+  pageId?: string;
   createdAt: string;
   updatedAt: string;
-  expiresAt: string | null;
+  expiresAt?: string;
   isArchived: boolean;
+  categories: { category: DocumentCategory }[];
 };
 
 type CategoryWithDocuments = {

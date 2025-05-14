@@ -10,20 +10,17 @@ import {
   Flex,
   Icon,
   Tooltip,
-  Divider,
-  useColorModeValue,
   HStack,
   Input,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverBody,
   PopoverArrow,
-  PopoverCloseButton,
-  FormControl,
-  FormLabel,
+  PopoverBody,
+  CloseButton,
   Text,
   useDisclosure,
+  Divider,
 } from '@chakra-ui/react'
 import {
   FaBold,
@@ -92,15 +89,15 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
   return (
     <Box
       border="1px"
-      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      borderColor={{ base: 'gray.200', _dark: 'gray.700' }}
       borderRadius="md"
       overflow="hidden"
     >
       <Flex
         p={2}
         borderBottomWidth="1px"
-        borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-        bg={useColorModeValue('gray.50', 'gray.800')}
+        borderBottomColor={{ base: 'gray.200', _dark: 'gray.700' }}
+        bg={{ base: 'gray.50', _dark: 'gray.800' }}
         wrap="wrap"
         gap={1}
       >
@@ -108,7 +105,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Bold" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleBold().run()}
-              isActive={editor.isActive('bold')}
+              className={editor.isActive('bold') ? 'is-active' : ''}
               aria-label="Bold"
             >
               <Icon as={FaBold} />
@@ -117,7 +114,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Italic" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleItalic().run()}
-              isActive={editor.isActive('italic')}
+              className={editor.isActive('italic') ? 'is-active' : ''}
               aria-label="Italic"
             >
               <Icon as={FaItalic} />
@@ -129,7 +126,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Heading 1" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-              isActive={editor.isActive('heading', { level: 1 })}
+              className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
               aria-label="Heading 1"
             >
               <Text fontWeight="bold">H1</Text>
@@ -138,7 +135,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Heading 2" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-              isActive={editor.isActive('heading', { level: 2 })}
+              className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
               aria-label="Heading 2"
             >
               <Text fontWeight="bold">H2</Text>
@@ -147,7 +144,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Heading 3" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-              isActive={editor.isActive('heading', { level: 3 })}
+              className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
               aria-label="Heading 3"
             >
               <Text fontWeight="bold">H3</Text>
@@ -159,7 +156,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Bullet List" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleBulletList().run()}
-              isActive={editor.isActive('bulletList')}
+              className={editor.isActive('bulletList') ? 'is-active' : ''}
               aria-label="Bullet List"
             >
               <Icon as={FaListUl} />
@@ -168,7 +165,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Ordered List" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
-              isActive={editor.isActive('orderedList')}
+              className={editor.isActive('orderedList') ? 'is-active' : ''}
               aria-label="Ordered List"
             >
               <Icon as={FaListOl} />
@@ -180,7 +177,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Blockquote" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleBlockquote().run()}
-              isActive={editor.isActive('blockquote')}
+              className={editor.isActive('blockquote') ? 'is-active' : ''}
               aria-label="Blockquote"
             >
               <Icon as={FaQuoteLeft} />
@@ -189,7 +186,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
           <Tooltip label="Code Block" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-              isActive={editor.isActive('codeBlock')}
+              className={editor.isActive('codeBlock') ? 'is-active' : ''}
               aria-label="Code Block"
             >
               <Icon as={FaCode} />
@@ -198,16 +195,10 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
         </ButtonGroup>
         
         <ButtonGroup size="sm" isAttached variant="outline" mr={2} mb={1}>
-          <Popover
-            isOpen={linkPopover.isOpen}
-            onOpen={linkPopover.onOpen}
-            onClose={linkPopover.onClose}
-            placement="bottom"
-            closeOnBlur={false}
-          >
+          <Popover isOpen={linkPopover.isOpen} onOpen={linkPopover.onOpen} onClose={linkPopover.onClose} placement="bottom" closeOnBlur={false}>
             <PopoverTrigger>
               <Button
-                isActive={editor.isActive('link')}
+                className={editor.isActive('link') ? 'is-active' : ''}
                 aria-label="Link"
               >
                 <Icon as={FaLink} />
@@ -215,34 +206,34 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
             </PopoverTrigger>
             <PopoverContent p={1} w="300px">
               <PopoverArrow />
-              <PopoverCloseButton />
+              <CloseButton />
               <PopoverBody>
-                <FormControl>
-                  <FormLabel>URL</FormLabel>
-                  <HStack>
-                    <Input
-                      placeholder="https://example.com"
-                      value={url}
-                      onChange={(e) => setUrl(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault()
-                          setLink()
-                        }
-                      }}
-                    />
-                    <Button size="sm" onClick={setLink} colorScheme="primary">
-                      Add
-                    </Button>
-                  </HStack>
-                </FormControl>
+                <Box mb={2}>
+                  <Text fontWeight="bold">URL</Text>
+                </Box>
+                <HStack>
+                  <Input
+                    placeholder="https://example.com"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        setLink()
+                      }
+                    }}
+                  />
+                  <Button size="sm" onClick={setLink} colorScheme="primary">
+                    Add
+                  </Button>
+                </HStack>
               </PopoverBody>
             </PopoverContent>
           </Popover>
           <Tooltip label="Unlink" hasArrow placement="top">
             <Button
               onClick={() => editor.chain().focus().unsetLink().run()}
-              isDisabled={!editor.isActive('link')}
+              disabled={!editor.isActive('link')}
               aria-label="Unlink"
             >
               <Icon as={FaUnlink} />
@@ -251,19 +242,19 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
         </ButtonGroup>
         
         <ButtonGroup size="sm" isAttached variant="outline" mb={1}>
-          <Tooltip label="Undo" hasArrow placement="top">
+          <Tooltip content="Undo" placement="top">
             <Button
               onClick={() => editor.chain().focus().undo().run()}
-              isDisabled={!editor.can().undo()}
+              disabled={!editor.can().undo()}
               aria-label="Undo"
             >
               <Icon as={FaUndo} />
             </Button>
           </Tooltip>
-          <Tooltip label="Redo" hasArrow placement="top">
+          <Tooltip content="Redo" placement="top">
             <Button
               onClick={() => editor.chain().focus().redo().run()}
-              isDisabled={!editor.can().redo()}
+              disabled={!editor.can().redo()}
               aria-label="Redo"
             >
               <Icon as={FaRedo} />
@@ -274,7 +265,7 @@ export default function Editor({ content, onChange, placeholder = 'Start writing
       
       <Box 
         borderRadius="0 0 md md"
-        bg={useColorModeValue('white', 'gray.700')}
+        bg={{ base: 'white', _dark: 'gray.700' }}
         p={2}
       >
         <EditorContent editor={editor} />

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Box,
-  useColorModeValue
-} from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,9 +17,9 @@ type BreadcrumbsProps = {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, customItems }) => {
   const router = useRouter();
-  const color = useColorModeValue('gray.500', 'gray.400');
-  const activeColor = useColorModeValue('primary.600', 'primary.400');
-  const bg = useColorModeValue('gray.50', 'gray.800');
+  const color = { base: 'gray.500', _dark: 'gray.400' };
+  const activeColor = { base: 'primary.600', _dark: 'primary.400' };
+  const bg = { base: 'gray.50', _dark: 'gray.800' };
 
   // Generate breadcrumbs from router path if not provided
   const breadcrumbItems = customItems || items || generateBreadcrumbsFromPath(router.asPath);
@@ -35,20 +29,15 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, customItems }) => {
   }
 
   return (
-    <Box bg={bg} py={2} px={4} mb={4}>
-      <Breadcrumb separator={<ChevronRightIcon color="gray.500" />} fontSize="sm">
+    <Box bg="gray.50" py={2} px={4} mb={4}>
+      <Breadcrumb fontSize="sm" separator={<ChevronRightIcon color="gray.500" />}>
         {breadcrumbItems.map((item, index) => (
-          <BreadcrumbItem
-            key={index}
-            isCurrentPage={item.isCurrentPage}
-            color={item.isCurrentPage ? activeColor : color}
-            fontWeight={item.isCurrentPage ? 'semibold' : 'normal'}
-          >
+          <BreadcrumbItem key={index} isCurrentPage={item.isCurrentPage}>
             {item.isCurrentPage ? (
-              <BreadcrumbLink>{item.label}</BreadcrumbLink>
+              <BreadcrumbLink aria-current="page" fontWeight="semibold">{item.label}</BreadcrumbLink>
             ) : (
               <Link href={item.href} passHref>
-                <BreadcrumbLink>{item.label}</BreadcrumbLink>
+                <BreadcrumbLink fontWeight="normal">{item.label}</BreadcrumbLink>
               </Link>
             )}
           </BreadcrumbItem>

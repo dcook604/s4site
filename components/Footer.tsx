@@ -4,7 +4,6 @@ import {
   Stack,
   Text,
   Link as ChakraLink,
-  useColorModeValue,
   Flex,
   Icon,
 } from '@chakra-ui/react'
@@ -14,10 +13,10 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}
+      bg={'gray.50'}
+      color={'gray.700'}
       borderTop="1px"
-      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      borderColor={'gray.200'}
       mt="auto"
     >
       <Container
@@ -36,7 +35,7 @@ export default function Footer() {
               <Text fontSize="lg" fontWeight="bold">
                 Strata Community Hub
               </Text>
-              <Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
+              <Text fontSize="sm" color={'gray.600'}>
                 Your strata information portal
               </Text>
             </Box>
@@ -97,7 +96,7 @@ export default function Footer() {
         <Box 
           borderTopWidth={1}
           borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
+          borderColor={'gray.200'}
           pt={4}
           textAlign="center"
         >

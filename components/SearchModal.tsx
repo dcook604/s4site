@@ -15,7 +15,6 @@ import {
   HStack,
   Icon,
   Divider,
-  useColorModeValue,
   Spinner,
   Flex,
   Kbd
@@ -37,9 +36,9 @@ const SearchModal: React.FC = () => {
   } = useSearch();
   
   const inputRef = useRef<HTMLInputElement>(null);
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const hoverBgColor = useColorModeValue('gray.50', 'gray.700');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
+  const bgColor = 'white';
+  const hoverBgColor = 'gray.50';
+  const borderColor = 'gray.200';
 
   // Focus input when modal opens
   useEffect(() => {

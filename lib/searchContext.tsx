@@ -1,7 +1,19 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import Fuse from 'fuse.js';
 import { useRouter } from 'next/router';
-import { Page } from '@prisma/client';
+
+// Define Page type locally based on schema
+type Page = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+  authorId: string;
+  // Add other fields as needed
+};
 
 // Define the search item type
 export type SearchItem = {

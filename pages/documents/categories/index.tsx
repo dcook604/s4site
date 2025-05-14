@@ -24,6 +24,7 @@ import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
 import prisma from '@/lib/prisma';
 import Fuse from 'fuse.js';
 
+// Define local type for DocumentCategory
 type DocumentCategory = {
   id: string;
   name: string;

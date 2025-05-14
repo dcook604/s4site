@@ -5,6 +5,18 @@ import { authOptions } from '../auth/[...nextauth]';
 
 const prisma = new PrismaClient();
 
+// Define local types for Page and Document
+type Page = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+  authorId: string;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -36,12 +48,11 @@ export default async function handler(
         id: true,
         title: true,
         fileName: true,
-        fileType: true,
       },
     });
 
     // Process page data to extract plain text content
-    const processedPages = pages.map(page => {
+    const processedPages = pages.map((page: Page) => {
       // Parse the JSON content to extract text
       let contentText = '';
       try {
@@ -63,11 +74,11 @@ export default async function handler(
     });
 
     // Process document data
-    const processedDocuments = documents.map(doc => ({
+    const processedDocuments = documents.map((doc: { id: string; title: string; fileName: string; }) => ({
       id: doc.id,
       title: doc.title,
       fileName: doc.fileName,
-      contentText: '', // We can't extract text from PDFs here, so leave empty
+      contentText: '', // No text extraction for documents
       type: 'document' as const,
     }));
 

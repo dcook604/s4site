@@ -5,6 +5,16 @@ import { authOptions } from '../auth/[...nextauth]';
 
 const prisma = new PrismaClient();
 
+// Define local type for DocumentCategory
+type DocumentCategory = {
+  id: string;
+  name: string;
+  description: string | null;
+  color: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

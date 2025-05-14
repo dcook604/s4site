@@ -6,23 +6,17 @@ import {
   IconButton,
   Button,
   Stack,
-  Collapse,
   Icon,
   Link as ChakraLink,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  useColorModeValue,
   useDisclosure,
   Container,
   Avatar,
   Menu,
-  MenuButton,
-  MenuList,
   MenuItem,
-  MenuDivider,
   HStack,
-  Tooltip,
   Kbd,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
@@ -60,14 +54,14 @@ export default function Header({ menuItems = [] }: HeaderProps) {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={'white'}
+        color={'gray.600'}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={'gray.200'}
         align={'center'}
         position="sticky"
         top="0"
@@ -80,7 +74,7 @@ export default function Header({ menuItems = [] }: HeaderProps) {
               <Text
                 textAlign="left"
                 fontFamily={'heading'}
-                color={useColorModeValue('gray.800', 'white')}
+                color={'gray.800'}
                 fontWeight="bold"
                 fontSize="xl"
                 cursor="pointer"
@@ -102,14 +96,7 @@ export default function Header({ menuItems = [] }: HeaderProps) {
               align="center"
             >
               {/* Search button */}
-              <Tooltip 
-                label={
-                  <HStack>
-                    <Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>
-                  </HStack>
-                } 
-                placement="bottom"
-              >
+              <Box as="span" title="Ctrl + K">
                 <IconButton
                   aria-label="Search"
                   icon={<SearchIcon />}
@@ -117,12 +104,11 @@ export default function Header({ menuItems = [] }: HeaderProps) {
                   onClick={openSearch}
                   size="md"
                 />
-              </Tooltip>
+              </Box>
 
               {session ? (
                 <Menu>
-                  <MenuButton
-                    as={Button}
+                  <Button
                     rounded={'full'}
                     variant={'link'}
                     cursor={'pointer'}
@@ -133,8 +119,8 @@ export default function Header({ menuItems = [] }: HeaderProps) {
                       name={user?.name || 'User'}
                       src={user?.image || undefined}
                     />
-                  </MenuButton>
-                  <MenuList>
+                  </Button>
+                  <Box as="ul" p={0} m={0} listStyleType="none">
                     <Link href="/profile" passHref>
                       <MenuItem as="a">Profile</MenuItem>
                     </Link>
@@ -143,9 +129,8 @@ export default function Header({ menuItems = [] }: HeaderProps) {
                         <MenuItem as="a">Admin Dashboard</MenuItem>
                       </Link>
                     )}
-                    <MenuDivider />
                     <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
-                  </MenuList>
+                  </Box>
                 </Menu>
               ) : (
                 <>
@@ -172,32 +157,28 @@ export default function Header({ menuItems = [] }: HeaderProps) {
         >
           <IconButton
             onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
+            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
             variant={'ghost'}
             aria-label={'Toggle Navigation'}
           />
         </Flex>
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav menuItems={menuItems} />
-      </Collapse>
+      {isOpen && <Box><MobileNav menuItems={menuItems} /></Box>}
     </Box>
   )
 }
 
 const DesktopNav = ({ menuItems }: { menuItems: MenuItem[] }) => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  const linkColor = 'gray.600'
+  const linkHoverColor = 'gray.800'
+  const popoverContentBgColor = 'white'
 
   return (
     <Stack direction={'row'} spacing={4}>
       {menuItems.map((navItem) => (
         <Box key={navItem.id}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
+          <Popover>
             <PopoverTrigger>
               <Box>
                 {navItem.link ? (
@@ -231,7 +212,6 @@ const DesktopNav = ({ menuItems }: { menuItems: MenuItem[] }) => {
                 )}
               </Box>
             </PopoverTrigger>
-
             {navItem.children && navItem.children.length > 0 && (
               <PopoverContent
                 border={0}
@@ -263,7 +243,7 @@ const DesktopSubNav = ({ label, link }: MenuItem) => {
         display={'block'}
         p={2}
         rounded={'md'}
-        _hover={{ bg: useColorModeValue('primary.50', 'gray.900') }}
+        _hover={{ bg: 'primary.50' }}
       >
         <Stack direction={'row'} align={'center'}>
           <Box>
@@ -295,7 +275,7 @@ const DesktopSubNav = ({ label, link }: MenuItem) => {
 const MobileNav = ({ menuItems }: { menuItems: MenuItem[] }) => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={'white'}
       p={4}
       display={{ md: 'none' }}
     >
@@ -323,7 +303,7 @@ const MobileNavItem = ({ label, children, link }: MenuItem) => {
       >
         <Text
           fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}
+          color={'gray.600'}
         >
           {label}
         </Text>
@@ -338,13 +318,13 @@ const MobileNavItem = ({ label, children, link }: MenuItem) => {
         )}
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+      <Box style={{ marginTop: '0!important' }}>
         <Stack
           mt={2}
           pl={4}
           borderLeft={1}
           borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
+          borderColor={'gray.200'}
           align={'start'}
         >
           {children &&
@@ -354,7 +334,7 @@ const MobileNavItem = ({ label, children, link }: MenuItem) => {
               </Link>
             ))}
         </Stack>
-      </Collapse>
+      </Box>
     </Stack>
   )
 } 

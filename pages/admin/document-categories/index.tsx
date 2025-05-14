@@ -46,6 +46,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]';
 import prisma from '@/lib/prisma';
 
+// Define local type for DocumentCategory
 type DocumentCategory = {
   id: string;
   name: string;

@@ -44,9 +44,9 @@ import Link from 'next/link';
 import Layout from '@/components/Layout';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import prisma from '@/lib/prisma';
-import { Document } from '@prisma/client';
 import Fuse from 'fuse.js';
 
+// Add local Document type
 // Add new types for categories
 type DocumentCategory = {
   id: string;
@@ -63,6 +63,22 @@ type DocumentWithCategories = Document & {
 type DocumentsPageProps = {
   documents: DocumentWithCategories[];
   categories: DocumentCategory[];
+};
+
+// Add new types for categories
+type Document = {
+  id: string;
+  title: string;
+  fileName: string;
+  fileSize: number;
+  fileType: string;
+  description?: string;
+  pageId?: string;
+  createdAt: string;
+  updatedAt: string;
+  expiresAt?: string;
+  isArchived: boolean;
+  // Add other fields as needed
 };
 
 export default function DocumentsPage({ documents, categories }: DocumentsPageProps) {
