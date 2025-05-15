@@ -16,6 +16,8 @@ COPY . .
 
 # Generate Prisma client and build the Next.js application
 RUN npx prisma generate && npm run build
+# Compile the seed script to JavaScript
+RUN npx tsc prisma/seed.ts --outDir prisma --esModuleInterop
 
 FROM node:18-slim AS runner
 RUN apt-get update -y && apt-get install -y openssl
