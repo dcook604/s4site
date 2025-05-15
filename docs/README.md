@@ -1,6 +1,24 @@
 # Strata Council Community Hub Documentation
 
-Welcome to the comprehensive documentation for the Strata Council Community Hub. This documentation is designed to help developers, administrators, and users understand the system's architecture, implementation details, and usage guidelines.
+Welcome to the documentation for the Strata Council Community Hub. This documentation provides a comprehensive overview of the system's architecture, implementation details, known issues, and quick reference guides.
+
+## Documentation Structure
+
+- **mental_model.md**: High-level concepts, architecture, and design rationale.
+- **implementation_details.md**: Technical details, data models, authentication, file storage, API design, performance optimizations, and deployment notes.
+- **gotchas.md**: Known issues, caveats, edge cases, and workarounds.
+- **quick_reference.md**: Environment variables, API endpoints, command reference, data models, permissions, UI components, and TypeScript/Prisma tips.
+
+## Getting Started
+
+1. Review the [mental_model.md](mental_model.md) for an overview of the system's architecture and design philosophy.
+2. Dive into [implementation_details.md](implementation_details.md) for technical details and implementation notes.
+3. Check [gotchas.md](gotchas.md) for known issues and workarounds.
+4. Use [quick_reference.md](quick_reference.md) as a quick guide for configuration, commands, and data models.
+
+## Contributing
+
+Please ensure that any changes to the codebase are reflected in the documentation. Follow the documentation hierarchy and update the relevant files accordingly.
 
 ## Documentation Index
 

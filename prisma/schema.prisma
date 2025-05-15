@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,11 +14,11 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  role          String    @default("user") // "admin" or "user"
+  role          String    @default("user")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  pages         Page[]
   accounts      Account[]
+  pages         Page[]
   sessions      Session[]
 }
 
@@ -38,8 +35,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -61,63 +57,63 @@ model VerificationToken {
 }
 
 model Page {
-  id         String    @id @default(cuid())
-  title      String
-  slug       String    @unique
-  content    String    // JSON content from WYSIWYG editor
-  isPublished Boolean  @default(false)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  authorId   String
-  author     User      @relation(fields: [authorId], references: [id])
-  menuItems  MenuItem[]
-  documents  Document[]
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String
+  isPublished Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  authorId    String
+  documents   Document[]
+  menuItems   MenuItem[]
+  author      User       @relation(fields: [authorId], references: [id])
 }
 
 model MenuItem {
-  id       String    @id @default(cuid())
+  id       String     @id @default(cuid())
   label    String
   link     String?
   pageId   String?
-  page     Page?     @relation(fields: [pageId], references: [id], onDelete: SetNull)
   parentId String?
-  parent   MenuItem? @relation("MenuItemToMenuItem", fields: [parentId], references: [id], onDelete: SetNull)
+  order    Int        @default(0)
+  parent   MenuItem?  @relation("MenuItemToMenuItem", fields: [parentId], references: [id])
   children MenuItem[] @relation("MenuItemToMenuItem")
-  order    Int       @default(0)
+  page     Page?      @relation(fields: [pageId], references: [id])
 }
 
 model Document {
-  id          String   @id @default(cuid())
+  id          String                  @id @default(cuid())
   title       String
   fileName    String
   fileSize    Int
   fileType    String
   description String?
   pageId      String?
-  page        Page?    @relation(fields: [pageId], references: [id], onDelete: SetNull)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  categories  DocumentsOnCategories[]
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
   expiresAt   DateTime?
-  isArchived  Boolean  @default(false)
+  isArchived  Boolean                 @default(false)
+  page        Page?                   @relation(fields: [pageId], references: [id])
+  categories  DocumentsOnCategories[]
 }
 
 model DocumentCategory {
-  id          String   @id @default(cuid())
+  id          String                  @id @default(cuid())
   name        String
   description String?
   color       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
   documents   DocumentsOnCategories[]
 }
 
 model DocumentsOnCategories {
-  document     Document        @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  documentId   String
-  category     DocumentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId   String
-  assignedAt   DateTime        @default(now())
+  documentId String
+  categoryId String
+  assignedAt DateTime         @default(now())
+  category   DocumentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  document   Document         @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
   @@id([documentId, categoryId])
-} 
+}
