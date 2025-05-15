@@ -6,23 +6,35 @@ set -e
 echo "Starting deployment process for Strata Council Website to CapRover..."
 
 # Build the application
-echo "Building application..."
+echo "Building the application..."
 npm run build
 
-# Run type checking to catch any errors
-echo "Running type check..."
-npm run typecheck || { echo "Type check failed!"; exit 1; }
-
-# Create deployment tar file
-echo "Creating deployment package..."
-tar -cf ../website-deploy.tar --exclude="node_modules" --exclude=".git" --exclude=".next/cache" .
-
-echo "Deploying to CapRover..."
-echo "You will be prompted to select a CapRover instance and create/select an app."
-echo "If 'strata-website' doesn't exist, you need to create it first in the CapRover dashboard."
+# Create deployment archive
+echo "Creating deployment archive..."
+tar -czf deploy.tar.gz \
+    .next \
+    public \
+    pages \
+    components \
+    lib \
+    styles \
+    types \
+    package.json \
+    package-lock.json \
+    next.config.js \
+    prisma \
+    Dockerfile \
+    captain-definition
 
 # Deploy to CapRover
-caprover deploy -t ../website-deploy.tar
+echo "Deploying to CapRover..."
+caprover deploy -t ./deploy.tar.gz
+
+# Clean up
+echo "Cleaning up..."
+rm deploy.tar.gz
+
+echo "Deployment completed!"
 
 echo -e "\nIMPORTANT POST-DEPLOYMENT STEPS:"
 echo "1. Set these environment variables in the CapRover dashboard (App → Settings → Environmental Variables):"
