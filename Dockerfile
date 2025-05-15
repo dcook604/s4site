@@ -53,12 +53,12 @@ RUN chown -R nextjs:nodejs /app/prisma && \
 
 USER nextjs
 
-EXPOSE 3000
-ENV PORT 3000
+EXPOSE 3313
+ENV PORT 3313
 
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/api/health || exit 1
+    CMD curl -f http://localhost:3313/api/health || exit 1
 
 # Start the application with proper error handling and database initialization
 CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && node server.js"] 
