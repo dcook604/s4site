@@ -14,10 +14,6 @@ const nextConfig = {
       'node_modules/@esbuild/linux-x64',
     ],
   },
-  // Ensure proper server configuration
-  experimental: {
-    outputFileTracingRoot: undefined,
-  },
   // Configure proper server settings
   serverRuntimeConfig: {
     // Will only be available on the server side
