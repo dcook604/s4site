@@ -10,6 +10,9 @@
     "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.7",
@@ -46,6 +49,7 @@
     "eslint-config-next": "15.3.2",
     "npm": "^11.3.0",
     "prisma": "^6.7.0",
+    "ts-node": "^10.9.2",
     "typescript": "5.8.3"
   }
 }
