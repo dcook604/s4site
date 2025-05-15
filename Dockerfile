@@ -27,6 +27,10 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Create necessary directories with correct permissions
+RUN mkdir -p /app/prisma /app/public/uploads/pdfs && \
+    chown -R nextjs:nodejs /app/prisma /app/public/uploads
+
 # Copy necessary files
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
@@ -34,20 +38,16 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Create uploads directory
-RUN mkdir -p ./public/uploads/pdfs && \
-    chown -R nextjs:nodejs ./public/uploads
-
 # Remove any root-owned .npm directory
 RUN rm -rf /app/.npm
 
-# Set npm cache to a writable directory (both lowercase and uppercase)
+# Set npm cache to a writable directory
 ENV npm_config_cache=/tmp/.npm
 ENV NPM_CONFIG_CACHE=/tmp/.npm
 ENV NPM_CONFIG_UPDATE_NOTIFIER=false
 
-# Fix permissions for the prisma directory and files
-RUN chown -R 1001:1001 /app/prisma
+# Create volume for SQLite database
+VOLUME ["/app/prisma"]
 
 USER nextjs
 
