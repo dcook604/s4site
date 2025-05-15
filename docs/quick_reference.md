@@ -1,5 +1,9 @@
 # Strata Council Community Hub: Quick Reference
 
+## Import Paths and Docker/CapRover
+- All imports must use relative paths (e.g., `../lib/prisma`).
+- Do NOT use TypeScript path aliases (e.g., `@/lib/prisma`), as these are not resolved in Docker/CapRover builds and will cause build failures.
+
 ## Environment Variables
 
 | Variable | Description | Default | Required |

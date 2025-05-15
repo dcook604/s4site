@@ -1,5 +1,10 @@
 # Strata Council Community Hub: Gotchas
 
+## Import Path Aliasing and Docker/CapRover
+- **Issue:** TypeScript path aliases (e.g., `@/lib/prisma`) are not resolved by Next.js in Docker/CapRover builds, causing build failures.
+- **Workaround:** Use only relative import paths (e.g., `../../../lib/prisma`) throughout the codebase.
+- **Note:** This is a hard requirement for production deployment with Docker/CapRover.
+
 This document contains known issues, caveats, edge cases, and workarounds for the Strata Council Community Hub application.
 
 ## Authentication & Authorization

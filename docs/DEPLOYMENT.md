@@ -1,5 +1,8 @@
 # Strata Council Website Deployment Guide
 
+> **Troubleshooting Note (2024-06):**
+> All import paths must be relative (e.g., `../lib/prisma`). Do NOT use TypeScript path aliases (e.g., `@/lib/prisma`), as these are not resolved in Docker/CapRover builds and will cause build failures.
+
 This guide provides comprehensive instructions for deploying the Strata Council Community Hub website to a CapRover server.
 
 ## Server Requirements

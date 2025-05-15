@@ -16,6 +16,8 @@
 
 ## Application Architecture
 
+> **Note (2024-06):** All import paths must be relative (e.g., `../lib/prisma`). Do NOT use TypeScript path aliases (e.g., `@/lib/prisma`), as these are not resolved in Docker/CapRover builds and will cause build failures.
+
 The application is built using Next.js and follows a modern architecture pattern:
 
 ### Front-end

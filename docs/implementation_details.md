@@ -1,5 +1,8 @@
 # Strata Council Community Hub: Implementation Details
 
+> **Migration Note (2024-06):**
+> All import paths must now be relative (e.g., `../lib/prisma`) instead of using path aliases like `@/lib/prisma`. This change is required for Docker/CapRover compatibility, as the build process does not resolve TypeScript path aliases. Update all imports accordingly to avoid build failures.
+
 ## Data Models
 
 ### User Model

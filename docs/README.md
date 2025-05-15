@@ -58,4 +58,5 @@ When making changes to the codebase, follow these guidelines:
 2. Add examples, explanations, and references for all new or updated functionality
 3. Document newly discovered quirks or limitations in `gotchas.md`
 4. Keep all documentation in sync with the codebase
-5. Consider documentation as part of the development process, not an afterthought 
+5. Consider documentation as part of the development process, not an afterthought
+6. **All import paths must be relative (e.g., `../lib/prisma`). Do NOT use TypeScript path aliases (e.g., `@/lib/prisma`), as these are not resolved in Docker/CapRover builds and will cause build failures.** 

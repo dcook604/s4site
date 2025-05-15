@@ -19,6 +19,8 @@ The system operates on a simple but effective role-based access model:
 
 ## System Architecture
 
+> **Note (2024-06):** All import paths must be relative (e.g., `../lib/prisma`) rather than using path aliases like `@/lib/prisma`. This is required for compatibility with Docker and CapRover builds, which do not resolve TypeScript path aliases by default.
+
 ### Frontend-Backend Integration
 The application uses Next.js to seamlessly blend frontend and backend capabilities:
 - React components for UI rendering
