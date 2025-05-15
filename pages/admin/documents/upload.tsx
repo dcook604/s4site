@@ -33,9 +33,9 @@ import {
 } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { FaFileUpload, FaFilePdf, FaCalendarAlt } from 'react-icons/fa'
-import Layout from '@/components/Layout'
+import Layout from '../../../components/Layout'
 import Link from 'next/link'
-import AdminLayout from '@/components/AdminLayout'
+import AdminLayout from '../../../components/AdminLayout'
 
 type DocumentCategory = {
   id: string;

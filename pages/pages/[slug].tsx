@@ -4,8 +4,8 @@ import { GetServerSideProps } from 'next'
 import { Box, Container, Heading, Text, Divider, VStack, Flex, Badge, Link as ChakraLink, Button, Icon } from '@chakra-ui/react'
 import { ChevronLeftIcon, DownloadIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
-import prisma from '@/lib/prisma'
-import Layout from '@/components/Layout'
+import prisma from '../../lib/prisma'
+import Layout from '../../components/Layout'
 import { FaFilePdf, FaCalendarAlt, FaUserEdit } from 'react-icons/fa'
 
 // Type definitions

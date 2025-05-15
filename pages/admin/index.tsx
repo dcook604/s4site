@@ -29,7 +29,7 @@ import {
   StatHelpText,
 } from '@chakra-ui/react'
 import { FaFileAlt, FaUsers, FaList, FaFileUpload } from 'react-icons/fa'
-import Layout from '@/components/Layout'
+import Layout from '../../components/Layout'
 import Link from 'next/link'
 
 export default function AdminDashboard() {

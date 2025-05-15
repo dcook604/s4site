@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import formidable from 'formidable'
 import fs from 'fs'
 import path from 'path'
-import prisma from '@/lib/prisma'
+import prisma from '../../../lib/prisma'
 
 // Disable default body parser to handle form data
 export const config = {

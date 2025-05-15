@@ -28,10 +28,10 @@ import { FaTag, FaSave, FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import AdminLayout from '@/components/AdminLayout';
+import AdminLayout from '../../../../components/AdminLayout';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../api/auth/[...nextauth]';
-import prisma from '@/lib/prisma';
+import prisma from '../../../../lib/prisma';
 
 type DocumentCategory = {
   id: string;

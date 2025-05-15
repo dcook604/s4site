@@ -21,8 +21,8 @@ import {
   FormHelperText,
 } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
-import Layout from '@/components/Layout'
-import Editor from '@/components/Editor'
+import Layout from '../../../components/Layout'
+import Editor from '../../../components/Editor'
 import Link from 'next/link'
 
 export default function PageEditor() {

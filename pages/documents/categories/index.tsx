@@ -19,9 +19,9 @@ import {
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaFolder, FaFolderOpen } from 'react-icons/fa';
 import Link from 'next/link';
-import Layout from '@/components/Layout';
-import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
-import prisma from '@/lib/prisma';
+import Layout from '../../../components/Layout';
+import Breadcrumbs, { BreadcrumbItem } from '../../../components/Breadcrumbs';
+import prisma from '../../../lib/prisma';
 import Fuse from 'fuse.js';
 
 // Define local type for DocumentCategory

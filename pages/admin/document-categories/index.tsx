@@ -41,10 +41,10 @@ import {
 import { FiPlus, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import AdminLayout from '@/components/AdminLayout';
+import AdminLayout from '../../../components/AdminLayout';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]';
-import prisma from '@/lib/prisma';
+import prisma from '../../../lib/prisma';
 
 // Define local type for DocumentCategory
 type DocumentCategory = {

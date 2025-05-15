@@ -1,7 +1,7 @@
 import { Box, Container, Flex, Heading, Text, Button, Stack, SimpleGrid } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import Layout from '@/components/Layout'
+import Layout from '../components/Layout'
 
 export default function Home() {
   const { data: session } = useSession()

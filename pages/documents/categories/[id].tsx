@@ -16,9 +16,9 @@ import {
 import { FaFilePdf, FaFileAlt, FaCalendarAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import Layout from '@/components/Layout';
-import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
-import prisma from '@/lib/prisma';
+import Layout from '../../../components/Layout';
+import Breadcrumbs, { BreadcrumbItem } from '../../../components/Breadcrumbs';
+import prisma from '../../../lib/prisma';
 
 // Define local types for DocumentWithCategory and DocumentCategory
 

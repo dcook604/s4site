@@ -2,9 +2,9 @@ import { GetServerSideProps } from 'next';
 import { Box, Container, Heading, Text, Button, VStack, HStack, Icon, useColorModeValue, Flex, Badge, Wrap, WrapItem } from '@chakra-ui/react';
 import { FaDownload, FaFilePdf, FaFileAlt, FaCalendarAlt, FaTag } from 'react-icons/fa';
 import { format } from 'date-fns';
-import Layout from '@/components/Layout';
-import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
-import prisma from '@/lib/prisma';
+import Layout from '../../components/Layout';
+import Breadcrumbs, { BreadcrumbItem } from '../../components/Breadcrumbs';
+import prisma from '../../lib/prisma';
 
 // Define local types for Document and DocumentCategory
 

@@ -14,7 +14,7 @@ import {
   useToast,
   Container,
 } from '@chakra-ui/react'
-import Layout from '@/components/Layout'
+import Layout from '../../components/Layout'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')

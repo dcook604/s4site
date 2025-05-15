@@ -41,9 +41,9 @@ import { SearchIcon, ChevronDownIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import { FaFilePdf, FaFileAlt, FaCalendarAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import Layout from '@/components/Layout';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import prisma from '@/lib/prisma';
+import Layout from '../../components/Layout';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import prisma from '../../lib/prisma';
 import Fuse from 'fuse.js';
 
 // Add local Document type
