@@ -16,8 +16,8 @@ COPY . .
 
 # Generate Prisma client and build the Next.js application
 RUN npx prisma generate && npm run build
-# Compile the seed script to JavaScript
-RUN npx tsc prisma/seed.ts --outDir prisma --esModuleInterop
+# Compile all TypeScript files using the project tsconfig.json
+RUN npx tsc --project tsconfig.json
 
 FROM node:18-slim AS runner
 RUN apt-get update -y && apt-get install -y openssl
@@ -37,6 +37,7 @@ RUN mkdir -p /app/prisma /app/public/uploads/pdfs && \
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/dist ./dist
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
