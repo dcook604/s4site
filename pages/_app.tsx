@@ -6,6 +6,7 @@ import theme from '../lib/theme'
 import '../styles/globals.css'
 import { SearchProvider } from '../lib/searchContext'
 import SearchModal from '../components/SearchModal'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 export default function App({
   Component,
@@ -14,16 +15,18 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
-        <SearchProvider>
-          <Head>
-            <title>Strata Council Community Hub</title>
-            <meta name="description" content="Community website for strata council members" />
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <SearchModal />
-          <Component {...pageProps} />
-        </SearchProvider>
+        <ErrorBoundary>
+          <SearchProvider>
+            <Head>
+              <title>Strata Council Community Hub</title>
+              <meta name="description" content="Community website for strata council members" />
+              <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <SearchModal />
+            <Component {...pageProps} />
+          </SearchProvider>
+        </ErrorBoundary>
       </ChakraProvider>
     </SessionProvider>
   )

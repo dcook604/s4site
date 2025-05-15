@@ -15,6 +15,8 @@ Administrators have full access to manage the website content:
 - **Page Management**: Create, edit, and publish pages with the WYSIWYG editor
 - **Menu Management**: Organize the navigation structure of the website
 - **Document Management**: Upload, categorize, and manage documents
+- **News Management**: Create, edit, and publish news and announcements
+- **Event Management**: Create, edit, and publish community events
 - **User Management**: View and manage user accounts
 
 Administrators can access the admin dashboard at `/admin` after logging in.
@@ -25,8 +27,68 @@ Regular users have limited access focused on viewing content:
 
 - View published pages and access public content
 - Browse, search, and download documents
+- Browse, search, and read news and announcements
+- Browse, search, and view community events
 - Filter documents by categories
 - Cannot access the admin dashboard or management features
+
+## News & Announcements
+
+### Browsing News
+
+All users can browse news articles through the News section:
+
+1. Navigate to the News section from the main menu or dashboard
+2. News articles are displayed in a list with key information:
+   - Title
+   - Publish date
+   - Author
+   - Excerpt or summary
+
+### Reading News
+
+1. Click on a news article title to view the full article
+2. The article page displays the full content, author, and publish date
+
+### Searching News
+
+- Use the global search bar or the News page search to find articles by title or content
+
+### Managing News (Administrators)
+
+1. Navigate to Admin > News
+2. View, create, edit, or delete news articles
+3. Fill in title, slug, content, and publish status
+4. Save or update the article
+
+## Community Events
+
+### Browsing Events
+
+All users can browse upcoming and past events through the Calendar section:
+
+1. Navigate to the Calendar section from the main menu or dashboard
+2. Events are displayed in a list or calendar view with:
+   - Title
+   - Start and end date/time
+   - Location
+   - Description
+
+### Viewing Event Details
+
+1. Click on an event title to view full details
+2. The event page displays all event information
+
+### Searching Events
+
+- Use the global search bar or the Calendar page search to find events by title, description, or date
+
+### Managing Events (Administrators)
+
+1. Navigate to Admin > Events
+2. View, create, edit, or delete events
+3. Fill in title, description, start/end date, location, and publish status
+4. Save or update the event
 
 ## Document Management System
 

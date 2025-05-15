@@ -64,6 +64,22 @@ This document outlines the functional and non-functional requirements for the St
 - FR-8.3: Search shall support partial word matches
 - FR-8.4: Search results shall be sorted by relevance
 
+### News and Announcements Management
+
+#### FR-9: News Management
+- FR-9.1: Admins shall be able to create, edit, publish, and delete news articles
+- FR-9.2: News articles shall have a title, slug, content, publish status, author, and timestamps
+- FR-9.3: Users shall be able to browse, search, and read published news articles
+- FR-9.4: News articles shall be displayed in a list and detail view
+
+### Community Events Management
+
+#### FR-10: Event Management
+- FR-10.1: Admins shall be able to create, edit, publish, and delete events
+- FR-10.2: Events shall have a title, description, start/end date, location, publish status, author, and timestamps
+- FR-10.3: Users shall be able to browse, search, and view published events
+- FR-10.4: Events shall be displayed in a list and detail view
+
 ## Non-Functional Requirements
 
 ### Performance Requirements

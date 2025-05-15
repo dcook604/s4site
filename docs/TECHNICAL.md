@@ -136,6 +136,38 @@ model MenuItem {
 }
 ```
 
+### News Model
+```prisma
+model News {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  content     String
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+}
+```
+
+### Event Model
+```prisma
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  location    String?
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+}
+```
+
 ## API Endpoints
 
 ### Authentication
@@ -167,6 +199,20 @@ model MenuItem {
 ### Menu Management
 - `GET /api/menus`: Get all menu items
 - `POST /api/menus`: Create or update menu structure (admin only)
+
+### News API Endpoints
+- `GET /api/news`: List all news articles
+- `POST /api/news`: Create a news article (admin only)
+- `GET /api/news/:id`: Get news article by ID
+- `PUT /api/news/:id`: Update news article (admin only)
+- `DELETE /api/news/:id`: Delete news article (admin only)
+
+### Events API Endpoints
+- `GET /api/events`: List all events
+- `POST /api/events`: Create an event (admin only)
+- `GET /api/events/:id`: Get event by ID
+- `PUT /api/events/:id`: Update event (admin only)
+- `DELETE /api/events/:id`: Delete event (admin only)
 
 ## Environment Variables
 
@@ -289,4 +335,16 @@ The document categorization system allows:
 
 3. **Session Management**:
    - JWT-based sessions have fixed expiration
-   - No explicit session termination for all user sessions 
+   - No explicit session termination for all user sessions
+
+## Admin Pages
+- `/admin/news`: Manage news articles (list, create, edit, delete)
+- `/admin/news/[id]`: Edit a single news article
+- `/admin/events`: Manage events (list, create, edit, delete)
+- `/admin/events/[id]`: Edit a single event
+
+## User-Facing Pages
+- `/news`: List and search news articles
+- `/news/[id]`: View a single news article
+- `/calendar`: List and search events
+- `/calendar/[id]`: View a single event 

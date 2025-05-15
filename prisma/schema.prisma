@@ -20,6 +20,8 @@ model User {
   accounts      Account[]
   pages         Page[]
   sessions      Session[]
+  news          News[]
+  events        Event[]
 }
 
 model Account {
@@ -116,4 +118,30 @@ model DocumentsOnCategories {
   document   Document         @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
   @@id([documentId, categoryId])
+}
+
+model News {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  content     String
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  location    String?
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
 }
